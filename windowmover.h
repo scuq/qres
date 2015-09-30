@@ -6,7 +6,7 @@
 #include <QtCore/QRegExp>
 #include <windows.h>
 #include <winuser.h>
-
+#include <QTime>
 
 
 
@@ -33,6 +33,9 @@ public:
     static void setBorderless(bool borderless);
     static void setBlankBorders(bool blankborders);
     static void setGameKeepalive(bool gamekeepalive);
+    static void setWaitForWindow(int seconds);
+    static void setDelayMoveWindow(int seconds);
+    static QString getLastErrorMsg();
 
 signals:
     void finished();
@@ -50,6 +53,9 @@ private:
     static bool borderless;
     static bool blankborders;
     static bool gamekeepalive;
+    static int waitforwindowseconds;
+    static int delaywindowseconds;
+    static bool moved;
 
 
 };

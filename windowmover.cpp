@@ -10,8 +10,9 @@ bool windowMover::repaint = true;
 bool windowMover::borderless = false;
 bool windowMover::blankborders = false;
 bool windowMover::gamekeepalive = false;
-
-
+int windowMover::waitforwindowseconds = 0;
+int windowMover::delaywindowseconds = 0;
+bool windowMover::moved = false;
 
 
 
@@ -19,9 +20,25 @@ bool windowMover::gamekeepalive = false;
 bool windowMover::findWindow(QString windowFindRegexp) {
 
 
-    ::EnumWindows(EnumWinHandle, (LPARAM)(LPSTR)(windowFindRegexp.toStdString().c_str()));
+    QTime dieTime= QTime::currentTime().addSecs(windowMover::waitforwindowseconds);
+
+    while (QTime::currentTime() < dieTime) {
 
 
+        if (windowMover::moved == false) {
+
+    EnumWindows(EnumWinHandle, (LPARAM)(LPSTR)(windowFindRegexp.toStdString().c_str()));
+
+        } else {
+
+            break;
+        }
+
+
+
+
+
+}
 
 
 
@@ -64,6 +81,33 @@ void windowMover::setGameKeepalive(bool gamekeepalive) {
 
 }
 
+void windowMover::setWaitForWindow(int seconds)
+{
+    windowMover::waitforwindowseconds = seconds;
+}
+
+void windowMover::setDelayMoveWindow(int seconds)
+{
+    windowMover::delaywindowseconds = seconds;
+}
+
+QString windowMover::getLastErrorMsg()
+{
+
+        LPWSTR bufPtr = NULL;
+        DWORD err = GetLastError();
+        FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER |
+                       FORMAT_MESSAGE_FROM_SYSTEM |
+                       FORMAT_MESSAGE_IGNORE_INSERTS,
+                       NULL, err, 0, (LPWSTR)&bufPtr, 0, NULL);
+        const QString result =
+            (bufPtr) ? QString::fromUtf16((const ushort*)bufPtr).trimmed() :
+                       QString("Unknown Error %1").arg(err);
+        LocalFree(bufPtr);
+        return result;
+
+}
+
 
 
 
@@ -73,8 +117,12 @@ BOOL CALLBACK windowMover::EnumWinHandle(HWND hWnd, LPARAM lparam)
     int buffsize=100;
 
 
+
     windowMover::rxFindStr.setCaseSensitivity(Qt::CaseInsensitive);
     windowMover::rxFindStr.setPattern(QString::fromUtf8((char*)lparam));
+
+
+
 
     if (!hWnd)
     {
@@ -84,6 +132,8 @@ BOOL CALLBACK windowMover::EnumWinHandle(HWND hWnd, LPARAM lparam)
     {
         return TRUE;
     }
+
+
 
     GetWindowText(hWnd,buff,buffsize);
 
@@ -146,19 +196,23 @@ BOOL CALLBACK windowMover::EnumWinHandle(HWND hWnd, LPARAM lparam)
 
 
 
+                qDebug() << "delaying move for " << QString::number(delaywindowseconds) << " seconds.";
+                Sleep(uint(delaywindowseconds*1000));
 
                 qDebug() << "Moved Window with Title: " << QString::fromWCharArray(buff) << " found: " << rxFindStr.cap(0) << " regex: " << windowMover::rxFindStr.pattern();
 
 
+
                 MoveWindow(hWnd,windowMover::x,windowMover::y,windowMover::width,windowMover::height,windowMover::repaint);
+                windowMover::moved = true;
             }
             }
 
         }
 
+
+
     }
-
-
     return TRUE;
 
 }

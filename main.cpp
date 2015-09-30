@@ -11,12 +11,12 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     QCoreApplication::setApplicationName("qres");
-    QCoreApplication::setApplicationVersion("1.0");
+    QCoreApplication::setApplicationVersion("1.1");
 
 
 
     QCommandLineParser parser;
-    parser.setApplicationDescription("Test helper");
+    parser.setApplicationDescription("qres");
     parser.addHelpOption();
     parser.addVersionOption();
 
@@ -52,6 +52,14 @@ int main(int argc, char *argv[])
             QCoreApplication::translate("main", "gamekeepalive"),
             QCoreApplication::translate("main", "gamekeepalive"));
 
+    QCommandLineOption waitForWindowOption(QStringList() << "i" << "waitforwindow",
+            QCoreApplication::translate("main", "seconds to wait for the window (title)"),
+            QCoreApplication::translate("main", "waitforwindow"));
+
+    QCommandLineOption delayMoveOption(QStringList() << "d" << "delaymovewindow",
+            QCoreApplication::translate("main", "seconds to delay window move"),
+            QCoreApplication::translate("main", "delaymovewindow"));
+
     parser.addOption(xPositionOption);
     parser.addOption(yPositionOption);
     parser.addOption(widthOption);
@@ -60,7 +68,8 @@ int main(int argc, char *argv[])
     parser.addOption(borderlessOption);
     parser.addOption(blankbordersOption);
     parser.addOption(gameKeepaliveOption);
-
+    parser.addOption(waitForWindowOption);
+    parser.addOption(delayMoveOption);
 
     parser.process(a);
 
@@ -72,6 +81,8 @@ int main(int argc, char *argv[])
      QString borderless = parser.value(borderlessOption);
      QString blankborders = parser.value(blankbordersOption);
      QString gamekeepalive = parser.value(gameKeepaliveOption);
+     QString waitforwindow = parser.value(waitForWindowOption);
+     QString delaymovewindow = parser.value(delayMoveOption);
 
     // qDebug() << windowRegexp;
     // qDebug() << xPosition;
@@ -87,6 +98,9 @@ int main(int argc, char *argv[])
     windowMover::setY(yPosition.toInt());
     windowMover::setWidth(width.toInt());
     windowMover::setHeight(height.toInt());
+
+    windowMover::setWaitForWindow(waitforwindow.toInt());
+    windowMover::setDelayMoveWindow(delaymovewindow.toInt());
 
     if (borderless == "true") {
          windowMover::setBorderless(true);
