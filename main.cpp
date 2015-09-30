@@ -90,6 +90,12 @@ int main(int argc, char *argv[])
      QString waitforwindow = parser.value(waitForWindowOption);
      QString delaymovewindow = parser.value(delayMoveOption);
 
+     if (windowRegexp == "") {
+         qDebug() << "specify window-title -f";
+         QTimer::singleShot(001, &a, SLOT(quit()));
+         return a.exec();
+     }
+
     // qDebug() << windowRegexp;
     // qDebug() << xPosition;
     // qDebug() << yPosition;
