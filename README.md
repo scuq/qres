@@ -1,6 +1,7 @@
 # qres
 Win32 Window Mover
 
+```
 Usage: c:\Program Files\qres\qres.exe [options]
 qres
 
@@ -18,3 +19,5 @@ Options:
   -i, --waitforwindow <waitforwindow>      seconds to wait for the window
                                            (title)
   -d, --delaymovewindow <delaymovewindow>  seconds to delay window move
+
+```
