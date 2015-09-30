@@ -19,7 +19,7 @@ Options:
   -i, --waitforwindow <waitforwindow>      seconds to wait for the window
                                            (title)
   -d, --delaymovewindow <delaymovewindow>  seconds to delay window move
-
+  -m, --maximize <maximize>                maximize
 ```
 
 # examples
