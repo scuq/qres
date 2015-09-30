@@ -26,4 +26,7 @@ Options:
 
 ```
 qres.exe -f ^Thunderbird$ -x 3962 -y 510 -w 1160 -t 920
+
+
+qres.exe" -f "^vmwareplayervm" -x 2700 -y 247 -w 2000 -t 1200 -b false -i 60 -d 10
 ```
