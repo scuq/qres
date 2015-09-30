@@ -48,6 +48,10 @@ int main(int argc, char *argv[])
             QCoreApplication::translate("main", "blankborders"),
             QCoreApplication::translate("main", "blankborders"));
 
+    QCommandLineOption maximizeOption(QStringList() << "m" << "maximize",
+            QCoreApplication::translate("main", "maximize"),
+            QCoreApplication::translate("main", "maximize"));
+
     QCommandLineOption gameKeepaliveOption(QStringList() << "g" << "gamekeepalive",
             QCoreApplication::translate("main", "gamekeepalive"),
             QCoreApplication::translate("main", "gamekeepalive"));
@@ -70,6 +74,7 @@ int main(int argc, char *argv[])
     parser.addOption(gameKeepaliveOption);
     parser.addOption(waitForWindowOption);
     parser.addOption(delayMoveOption);
+    parser.addOption(maximizeOption);
 
     parser.process(a);
 
@@ -79,6 +84,7 @@ int main(int argc, char *argv[])
      QString width = parser.value(widthOption);
      QString height = parser.value(heightOption);
      QString borderless = parser.value(borderlessOption);
+     QString maximize = parser.value(maximizeOption);
      QString blankborders = parser.value(blankbordersOption);
      QString gamekeepalive = parser.value(gameKeepaliveOption);
      QString waitforwindow = parser.value(waitForWindowOption);
@@ -119,6 +125,12 @@ int main(int argc, char *argv[])
          windowMover::setGameKeepalive(true);
     } else {
         windowMover::setGameKeepalive(false);
+    }
+
+    if (maximize == "true") {
+         windowMover::setMaximize(true);
+    } else {
+        windowMover::setMaximize(false);
     }
 
      windowMover::findWindow(windowRegexp);

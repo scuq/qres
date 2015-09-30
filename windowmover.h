@@ -31,6 +31,7 @@ public:
     static void setWidth(int width);
     static void setHeight(int height);
     static void setBorderless(bool borderless);
+    static void setMaximize(bool maximize);
     static void setBlankBorders(bool blankborders);
     static void setGameKeepalive(bool gamekeepalive);
     static void setWaitForWindow(int seconds);
@@ -51,6 +52,7 @@ private:
     static int height;
     static bool repaint;
     static bool borderless;
+    static bool maximize;
     static bool blankborders;
     static bool gamekeepalive;
     static int waitforwindowseconds;

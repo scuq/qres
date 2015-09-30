@@ -8,6 +8,7 @@ int windowMover::width = 300;
 int windowMover::height = 300;
 bool windowMover::repaint = true;
 bool windowMover::borderless = false;
+bool windowMover::maximize = false;
 bool windowMover::blankborders = false;
 bool windowMover::gamekeepalive = false;
 int windowMover::waitforwindowseconds = 0;
@@ -68,6 +69,11 @@ void windowMover::setHeight(int height) {
 void windowMover::setBorderless(bool borderless) {
     windowMover::borderless = borderless;
 
+}
+
+void windowMover::setMaximize(bool maximize)
+{
+    windowMover::maximize = maximize;
 }
 
 void windowMover::setBlankBorders(bool blankborders) {
@@ -204,6 +210,17 @@ BOOL CALLBACK windowMover::EnumWinHandle(HWND hWnd, LPARAM lparam)
 
 
                 MoveWindow(hWnd,windowMover::x,windowMover::y,windowMover::width,windowMover::height,windowMover::repaint);
+
+                if (windowMover::maximize == true)
+                {
+
+
+                   ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+
+
+
+                }
+
                 windowMover::moved = true;
             }
             }
