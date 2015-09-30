@@ -21,3 +21,9 @@ Options:
   -d, --delaymovewindow <delaymovewindow>  seconds to delay window move
 
 ```
+
+# examples
+
+```
+qres.exe -f ^Thunderbird$ -x 3962 -y 510 -w 1160 -t 920
+```
