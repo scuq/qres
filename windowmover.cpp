@@ -14,8 +14,9 @@ bool windowMover::gamekeepalive = false;
 int windowMover::waitforwindowseconds = 0;
 int windowMover::delaywindowseconds = 0;
 bool windowMover::moved = false;
-
-
+QString windowMover::command = "";
+QProcess windowMover::process;
+QStringList windowMover::args;
 
 
 bool windowMover::findWindow(QString windowFindRegexp) {
@@ -98,6 +99,16 @@ void windowMover::setWaitForWindow(int seconds)
 void windowMover::setDelayMoveWindow(int seconds)
 {
     windowMover::delaywindowseconds = seconds;
+}
+
+void windowMover::executeCommand(QString command, QString cargs)
+{
+    windowMover::command = command;
+
+    args << cargs.split(" ");
+
+    process.execute(command, args);
+
 }
 
 QString windowMover::getLastErrorMsg()

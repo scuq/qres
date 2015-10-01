@@ -7,8 +7,8 @@
 #include <windows.h>
 #include <winuser.h>
 #include <QTime>
-
-
+#include <QProcess>
+#include <QStringList>
 
 
 
@@ -36,6 +36,8 @@ public:
     static void setGameKeepalive(bool gamekeepalive);
     static void setWaitForWindow(int seconds);
     static void setDelayMoveWindow(int seconds);
+    static void executeCommand(QString command, QString cargs);
+
     static QString getLastErrorMsg();
 
 signals:
@@ -58,6 +60,9 @@ private:
     static int waitforwindowseconds;
     static int delaywindowseconds;
     static bool moved;
+    static QString command;
+    static QProcess process;
+    static QStringList args;
 
 
 };

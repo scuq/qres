@@ -64,6 +64,14 @@ int main(int argc, char *argv[])
             QCoreApplication::translate("main", "seconds to delay window move"),
             QCoreApplication::translate("main", "delaymovewindow"));
 
+    QCommandLineOption executeCommandOption(QStringList() << "e" << "execute",
+            QCoreApplication::translate("main", "execute command"),
+            QCoreApplication::translate("main", "executecommand"));
+
+    QCommandLineOption executeCommandArgsOption(QStringList() << "a" << "executeargs",
+            QCoreApplication::translate("main", "execute command args"),
+            QCoreApplication::translate("main", "executeargs"));
+
     parser.addOption(xPositionOption);
     parser.addOption(yPositionOption);
     parser.addOption(widthOption);
@@ -75,6 +83,8 @@ int main(int argc, char *argv[])
     parser.addOption(waitForWindowOption);
     parser.addOption(delayMoveOption);
     parser.addOption(maximizeOption);
+    parser.addOption(executeCommandOption);
+    parser.addOption(executeCommandArgsOption);
 
     parser.process(a);
 
@@ -89,6 +99,8 @@ int main(int argc, char *argv[])
      QString gamekeepalive = parser.value(gameKeepaliveOption);
      QString waitforwindow = parser.value(waitForWindowOption);
      QString delaymovewindow = parser.value(delayMoveOption);
+     QString executecommand = parser.value(executeCommandOption);
+     QString executeargs = parser.value(executeCommandArgsOption);
 
 
      if (windowRegexp == "") {
@@ -115,6 +127,10 @@ int main(int argc, char *argv[])
 
     windowMover::setWaitForWindow(waitforwindow.toInt());
     windowMover::setDelayMoveWindow(delaymovewindow.toInt());
+
+    if (executecommand != "") {
+        windowMover::executeCommand(executecommand, executeargs);
+    }
 
     if (borderless == "true") {
          windowMover::setBorderless(true);
