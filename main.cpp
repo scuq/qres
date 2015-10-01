@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     QCoreApplication::setApplicationName("qres");
-    QCoreApplication::setApplicationVersion("1.1");
+    QCoreApplication::setApplicationVersion("1.2");
 
 
 
@@ -90,11 +90,13 @@ int main(int argc, char *argv[])
      QString waitforwindow = parser.value(waitForWindowOption);
      QString delaymovewindow = parser.value(delayMoveOption);
 
+
      if (windowRegexp == "") {
          qDebug() << "specify window-title -f";
          QTimer::singleShot(001, &a, SLOT(quit()));
          return a.exec();
      }
+
 
     // qDebug() << windowRegexp;
     // qDebug() << xPosition;

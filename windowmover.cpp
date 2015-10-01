@@ -20,15 +20,18 @@ bool windowMover::moved = false;
 
 bool windowMover::findWindow(QString windowFindRegexp) {
 
+    if (windowMover::waitforwindowseconds > 0) {
 
-    QTime dieTime= QTime::currentTime().addSecs(windowMover::waitforwindowseconds);
 
-    while (QTime::currentTime() < dieTime) {
+
+        QTime dieTime= QTime::currentTime().addSecs(windowMover::waitforwindowseconds);
+
+        while (QTime::currentTime() < dieTime) {
 
 
         if (windowMover::moved == false) {
 
-    EnumWindows(EnumWinHandle, (LPARAM)(LPSTR)(windowFindRegexp.toStdString().c_str()));
+            EnumWindows(EnumWinHandle, (LPARAM)(LPSTR)(windowFindRegexp.toStdString().c_str()));
 
         } else {
 
@@ -36,11 +39,11 @@ bool windowMover::findWindow(QString windowFindRegexp) {
         }
 
 
+        }
 
-
-
-}
-
+    } else {
+            EnumWindows(EnumWinHandle, (LPARAM)(LPSTR)(windowFindRegexp.toStdString().c_str()));
+    }
 
 
     return true;
