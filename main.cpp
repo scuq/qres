@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     QCoreApplication::setApplicationName("qres");
-    QCoreApplication::setApplicationVersion("1.2");
+    QCoreApplication::setApplicationVersion("1.3");
 
 
 
@@ -128,9 +128,7 @@ int main(int argc, char *argv[])
     windowMover::setWaitForWindow(waitforwindow.toInt());
     windowMover::setDelayMoveWindow(delaymovewindow.toInt());
 
-    if (executecommand != "") {
-        windowMover::executeCommand(executecommand, executeargs);
-    }
+
 
     if (borderless == "true") {
          windowMover::setBorderless(true);
@@ -157,7 +155,13 @@ int main(int argc, char *argv[])
         windowMover::setMaximize(false);
     }
 
-     windowMover::findWindow(windowRegexp);
+    if (executecommand != "") {
+        windowMover::executeCommand(executecommand, executeargs, windowRegexp);
+    } else {
+
+        windowMover::findWindow(windowRegexp);
+
+    }
 
 
 

@@ -36,7 +36,7 @@ public:
     static void setGameKeepalive(bool gamekeepalive);
     static void setWaitForWindow(int seconds);
     static void setDelayMoveWindow(int seconds);
-    static void executeCommand(QString command, QString cargs);
+    static void executeCommand(QString command, QString cargs, QString windowFindRegexp);
 
     static QString getLastErrorMsg();
 

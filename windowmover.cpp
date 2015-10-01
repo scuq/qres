@@ -21,6 +21,8 @@ QStringList windowMover::args;
 
 bool windowMover::findWindow(QString windowFindRegexp) {
 
+
+
     if (windowMover::waitforwindowseconds > 0) {
 
 
@@ -28,6 +30,8 @@ bool windowMover::findWindow(QString windowFindRegexp) {
         QTime dieTime= QTime::currentTime().addSecs(windowMover::waitforwindowseconds);
 
         while (QTime::currentTime() < dieTime) {
+
+
 
 
         if (windowMover::moved == false) {
@@ -101,13 +105,25 @@ void windowMover::setDelayMoveWindow(int seconds)
     windowMover::delaywindowseconds = seconds;
 }
 
-void windowMover::executeCommand(QString command, QString cargs)
+void windowMover::executeCommand(QString command, QString cargs, QString windowFindRegexp)
 {
     windowMover::command = command;
 
     args << cargs.split(" ");
 
-    process.execute(command, args);
+    qDebug() << "Executing command:" << command << " with args: " << cargs;
+
+    process.startDetached(command, args);
+
+
+
+    Sleep(uint(250));
+
+    qDebug() << "Sleeping 250ms";
+
+    windowMover::findWindow(windowFindRegexp);
+
+    return;
 
 }
 
