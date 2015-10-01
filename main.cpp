@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
             QCoreApplication::translate("main", "execute command"),
             QCoreApplication::translate("main", "executecommand"));
 
-    QCommandLineOption executeCommandArgsOption(QStringList() << "a" << "executeargs",
+    QCommandLineOption executeCommandArgsOption(QStringList() << "u" << "executeargs",
             QCoreApplication::translate("main", "execute command args"),
             QCoreApplication::translate("main", "executeargs"));
 
