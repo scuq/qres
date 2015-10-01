@@ -21,6 +21,7 @@ Options:
   -d, --delaymovewindow <delaymovewindow>  seconds to delay window move
   -m, --maximize <maximize>                maximize
   -e, --execute <executecommand>           execute command
+  -u, --executeargs <executeargs>          execute command args
 ```
 
 # examples
